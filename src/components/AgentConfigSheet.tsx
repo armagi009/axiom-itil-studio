@@ -24,7 +24,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect } from "react";
-import { Loader2 } from "lucide-react";
 const agentConfigSchema = z.object({
   persona: z.string().min(10, "Persona description is too short."),
   trigger: z.string().min(10, "Trigger event description is too short."),
@@ -34,11 +33,8 @@ const agentConfigSchema = z.object({
 type AgentConfigFormValues = z.infer<typeof agentConfigSchema>;
 export function AgentConfigSheet() {
   const isSheetOpen = useStudioStore((s) => s.isSheetOpen);
-  const selectedAgentId = useStudioStore((s) => s.selectedAgentId);
-  const getAgentById = useStudioStore((s) => s.getAgentById);
-  const updateAgentConfig = useStudioStore((s) => s.updateAgentConfig);
+  const selectedAgent = useStudioStore((s) => s.selectedAgent);
   const closeSheet = useStudioStore((s) => s.closeSheet);
-  const selectedAgent = getAgentById(selectedAgentId);
   const form = useForm<AgentConfigFormValues>({
     resolver: zodResolver(agentConfigSchema),
     defaultValues: selectedAgent?.config,
@@ -47,10 +43,10 @@ export function AgentConfigSheet() {
     if (selectedAgent) {
       form.reset(selectedAgent.config);
     }
-  }, [selectedAgent, form, isSheetOpen]);
-  const onSubmit = async (data: AgentConfigFormValues) => {
-    if (!selectedAgentId) return;
-    await updateAgentConfig(selectedAgentId, data);
+  }, [selectedAgent, form]);
+  const onSubmit = (data: AgentConfigFormValues) => {
+    console.log("Form submitted:", data);
+    // Here you would typically send the data to your backend
     closeSheet();
   };
   if (!selectedAgent) return null;
@@ -166,10 +162,7 @@ export function AgentConfigSheet() {
               <Button type="button" variant="outline" onClick={closeSheet}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Save Changes
-              </Button>
+              <Button type="submit">Save Changes</Button>
             </SheetFooter>
           </form>
         </Form>

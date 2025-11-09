@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 type AgentCardProps = {
+  id: string;
   icon: React.ElementType;
   name: string;
   description: string;
@@ -11,8 +12,10 @@ type AgentCardProps = {
   tags: string[];
   active: boolean;
   index: number;
+  onClick: (id: string) => void;
 };
 export function AgentCard({
+  id,
   icon: Icon,
   name,
   description,
@@ -20,24 +23,29 @@ export function AgentCard({
   tags,
   active,
   index,
+  onClick,
 }: AgentCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="relative group"
+      className="relative group h-full"
     >
       <div
         className={cn(
-          "absolute -inset-0.5 bg-gradient-to-r from-primary to-primary-accent rounded-lg blur-sm opacity-0 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt",
+          "absolute -inset-0.5 bg-gradient-to-r from-primary to-primary-accent rounded-lg blur-sm opacity-0 group-hover:opacity-50 transition duration-1000 group-hover:duration-200",
           "dark:opacity-0 dark:group-hover:opacity-75"
         )}
       ></div>
-      <Card className="relative h-full flex flex-col bg-card/80 dark:bg-card/60 backdrop-blur-sm transition-all duration-300 group-hover:border-primary/50">
+      <Card
+        as="button"
+        onClick={() => onClick(id)}
+        className="relative h-full w-full flex flex-col bg-card/80 dark:bg-card/60 backdrop-blur-sm transition-all duration-300 group-hover:border-primary/50 text-left"
+      >
         <CardHeader className="flex flex-row items-start justify-between gap-4 pb-4">
           <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0">
               <Icon className="h-6 w-6" />
             </div>
             <div>
@@ -53,7 +61,9 @@ export function AgentCard({
               </div>
             </div>
           </div>
-          <Switch checked={active} aria-label={`Activate ${name}`} />
+          <div onClick={(e) => e.stopPropagation()}>
+            <Switch checked={active} aria-label={`Activate ${name}`} />
+          </div>
         </CardHeader>
         <CardContent className="flex-grow flex flex-col justify-between">
           <p className="text-sm text-muted-foreground mb-6">{description}</p>
