@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
-import * as LucideIcons from "lucide-react";
-type IconName = keyof typeof LucideIcons;
+import { icons, Bot } from "lucide-react";
+
 type AgentCardProps = {
   id: string;
   icon: string; // Changed from React.ElementType to string
@@ -27,7 +27,7 @@ export function AgentCard({
   index,
   onClick,
 }: AgentCardProps) {
-  const IconComponent = LucideIcons[icon as IconName] || LucideIcons.Bot;
+  const IconComponent = icons[icon as keyof typeof icons] || Bot;
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
       onClick(id);
