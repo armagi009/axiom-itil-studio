@@ -28,7 +28,9 @@ export function HomePage() {
           </div>
           <main className="flex-1 overflow-y-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="py-8 md:py-10 lg:py-12">
                 <Outlet />
+              </div>
             </div>
           </main>
         </SidebarInset>

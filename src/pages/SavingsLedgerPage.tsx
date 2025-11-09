@@ -62,7 +62,7 @@ export function SavingsLedgerPage() {
     { title: "Efficiency Gain", value: "+14.2%", icon: ArrowUpRight },
   ];
   return (
-    <div className="flex-1 space-y-8 p-4 md:p-8 pt-6">
+    <div className="flex-1 space-y-8">
       <div className="flex items-center justify-between space-y-2">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -124,7 +124,7 @@ export function SavingsLedgerPage() {
                   <LineChart data={savingsChartData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                     <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `$${value / 1000}k`} />
+                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${value / 1000}k`} />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
                     <Line type="monotone" dataKey="savings" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 8 }} />

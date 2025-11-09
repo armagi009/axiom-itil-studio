@@ -4,7 +4,6 @@ import { AgentCard } from "@/components/AgentCard";
 import { AgentConfigSheet } from "@/components/AgentConfigSheet";
 import { useStudioStore } from "@/stores/useStudioStore";
 import { Skeleton } from "@/components/ui/skeleton";
-import * as LucideIcons from "lucide-react";
 export function PluginFactoryPage() {
   const openSheet = useStudioStore((state) => state.openSheet);
   const agents = useStudioStore((state) => state.agents);
@@ -21,7 +20,7 @@ export function PluginFactoryPage() {
   };
   return (
     <>
-      <div className="flex-1 space-y-8 p-4 md:p-8 pt-6">
+      <div className="flex-1 space-y-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}

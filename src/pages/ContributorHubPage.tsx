@@ -32,7 +32,7 @@ export function ContributorHubPage() {
     setProgress((prev) => Math.min(prev + 5, 100));
   };
   return (
-    <div className="flex-1 space-y-8 p-4 md:p-8 pt-6">
+    <div className="flex-1 space-y-8">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

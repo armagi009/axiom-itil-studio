@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 export interface AgentCardData {
   id: string;
-  icon: React.ElementType;
+  icon: string; // Changed from React.ElementType to string
   name: string;
   description: string;
   stats: { label: string; value: string }[];
@@ -107,7 +107,7 @@ export const agentPerformanceData = [
 export const agentCards: AgentCardData[] = [
   {
     id: "incident",
-    icon: Zap,
+    icon: "Zap",
     name: "Incident Triage Goblin",
     description: "Automates incident prioritization and assignment based on impact and urgency.",
     stats: [
@@ -125,7 +125,7 @@ export const agentCards: AgentCardData[] = [
   },
   {
     id: "problem",
-    icon: Cpu,
+    icon: "Cpu",
     name: "Problem Hunter",
     description: "Proactively identifies root causes from recurring incidents and trends.",
     stats: [
@@ -143,7 +143,7 @@ export const agentCards: AgentCardData[] = [
   },
   {
     id: "change",
-    icon: GitMerge,
+    icon: "GitMerge",
     name: "Change Advisory Bot",
     description: "Automates the approval process for low-risk, standard changes.",
     stats: [
@@ -161,7 +161,7 @@ export const agentCards: AgentCardData[] = [
   },
   {
     id: "service-request",
-    icon: Database,
+    icon: "Database",
     name: "Service Request Automator",
     description: "Fulfills common service requests like password resets and software access.",
     stats: [
@@ -179,7 +179,7 @@ export const agentCards: AgentCardData[] = [
   },
   {
     id: "knowledge",
-    icon: BookOpen,
+    icon: "BookOpen",
     name: "Knowledge Vulture",
     description: "Creates and suggests knowledge base articles from resolved incidents.",
     stats: [
@@ -197,7 +197,7 @@ export const agentCards: AgentCardData[] = [
   },
   {
     id: "sla",
-    icon: Clock,
+    icon: "Clock",
     name: "SLA Sentinel",
     description: "Monitors SLA timers and automatically escalates tickets at risk of breaching.",
     stats: [
@@ -233,6 +233,18 @@ export const ticketQueue = [
     title: "VPN connection is dropping frequently",
     description: "Multiple users on the 'Sales' team have reported that their VPN connection disconnects every 15-20 minutes. This started after the firewall update last night.",
     tags: ["VPN", "Connectivity", "Firewall"],
+  },
+  {
+    id: "INC0012348",
+    title: "Request to install Adobe Photoshop",
+    description: "User 's.smith' from the design team is requesting a license and installation for Adobe Photoshop on their new workstation.",
+    tags: ["Software", "Request", "Licensing"],
+  },
+  {
+    id: "INC0012349",
+    title: "Printer on 3rd floor not responding",
+    description: "The main printer 'PRN-3-EAST' is offline. Multiple users cannot print. It is not responding to pings.",
+    tags: ["Hardware", "Printer", "Network"],
   },
 ];
 export const leaderboardData = [
