@@ -5,21 +5,19 @@ import { AgentConfigSheet } from "@/components/AgentConfigSheet";
 import { useStudioStore } from "@/stores/useStudioStore";
 import { Skeleton } from "@/components/ui/skeleton";
 import * as LucideIcons from "lucide-react";
-type IconName = keyof typeof LucideIcons;
 export function PluginFactoryPage() {
   const openSheet = useStudioStore((state) => state.openSheet);
   const agents = useStudioStore((state) => state.agents);
   const isLoading = useStudioStore((state) => state.isLoading);
   const fetchAgents = useStudioStore((state) => state.fetchAgents);
   useEffect(() => {
-    fetchAgents();
-  }, [fetchAgents]);
+    // Fetch agents only if the list is empty
+    if (agents.length === 0) {
+      fetchAgents();
+    }
+  }, [fetchAgents, agents.length]);
   const handleCardClick = (agentId: string) => {
     openSheet(agentId);
-  };
-  const getIconComponent = (iconName: string) => {
-    const IconComponent = LucideIcons[iconName as IconName];
-    return IconComponent ? <IconComponent className="h-6 w-6" /> : <LucideIcons.Bot className="h-6 w-6" />;
   };
   return (
     <>
@@ -37,7 +35,7 @@ export function PluginFactoryPage() {
           </p>
         </motion.div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {isLoading
+          {isLoading && agents.length === 0
             ? Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton key={index} className="h-[280px] rounded-lg" />
               ))
@@ -50,7 +48,7 @@ export function PluginFactoryPage() {
                   stats={agent.stats}
                   tags={agent.tags}
                   active={agent.active}
-                  icon={LucideIcons[agent.icon as IconName] || LucideIcons.Bot}
+                  icon={agent.icon} // Pass icon name as a string
                   index={index}
                   onClick={handleCardClick}
                 />

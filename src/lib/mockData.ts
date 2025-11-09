@@ -214,3 +214,31 @@ export const agentCards: AgentCardData[] = [
     },
   },
 ];
+// New data for Contributor Hub
+export const contributorStats = [
+  { label: "Tickets Labeled", value: "482", change: "+52 this week" },
+  { label: "Accuracy", value: "97.3%", change: "+0.2%" },
+  { label: "Rank", value: "#12", change: "Top 10%" },
+  { label: "Badges Earned", value: "3", change: "New: 'Triage Pro'" },
+];
+export const ticketQueue = [
+  {
+    id: "INC0012345",
+    title: "Cannot access shared network drive",
+    description: "User 'j.doe' reports receiving an 'Access Denied' error when trying to open the 'Marketing' shared drive. They had access yesterday. No recent changes to their permissions are noted in AD.",
+    tags: ["Network", "Permissions", "File Server"],
+  },
+  {
+    id: "INC0012346",
+    title: "VPN connection is dropping frequently",
+    description: "Multiple users on the 'Sales' team have reported that their VPN connection disconnects every 15-20 minutes. This started after the firewall update last night.",
+    tags: ["VPN", "Connectivity", "Firewall"],
+  },
+];
+export const leaderboardData = [
+  { rank: 1, user: "Alex R.", points: 12540, avatar: "AR" },
+  { rank: 2, user: "Samantha B.", points: 11980, avatar: "SB" },
+  { rank: 3, user: "Kenji T.", points: 11200, avatar: "KT" },
+  { rank: 4, user: "Maria G.", points: 10560, avatar: "MG" },
+  { rank: 5, user: "You", points: 9870, avatar: "YOU" },
+];

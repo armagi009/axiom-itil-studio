@@ -3,9 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
+import * as LucideIcons from "lucide-react";
+type IconName = keyof typeof LucideIcons;
 type AgentCardProps = {
   id: string;
-  icon: React.ElementType;
+  icon: string; // Changed from React.ElementType to string
   name: string;
   description: string;
   stats: { label: string; value: string }[];
@@ -16,7 +18,7 @@ type AgentCardProps = {
 };
 export function AgentCard({
   id,
-  icon: Icon,
+  icon,
   name,
   description,
   stats,
@@ -25,6 +27,7 @@ export function AgentCard({
   index,
   onClick,
 }: AgentCardProps) {
+  const IconComponent = LucideIcons[icon as IconName] || LucideIcons.Bot;
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
       onClick(id);
@@ -53,7 +56,7 @@ export function AgentCard({
         <CardHeader className="flex flex-row items-start justify-between gap-4 pb-4">
           <div className="flex items-start gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0">
-              <Icon className="h-6 w-6" />
+              <IconComponent className="h-6 w-6" />
             </div>
             <div>
               <CardTitle className="font-display text-lg font-semibold">
@@ -74,7 +77,7 @@ export function AgentCard({
         </CardHeader>
         <CardContent className="flex-grow flex flex-col justify-between">
           <p className="text-sm text-muted-foreground mb-6">{description}</p>
-          <div className="flex justify-around border-t border-border pt-4">
+          <div className="flex justify-around border-t pt-4">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-xl font-bold text-foreground">{stat.value}</p>
