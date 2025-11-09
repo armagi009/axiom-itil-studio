@@ -101,6 +101,7 @@ export default {
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
+            'primary-accent': 'hsl(var(--primary-accent))',
   			border: 'hsl(var(--border))',
   			ring: 'hsl(var(--ring))',
   			card: {
