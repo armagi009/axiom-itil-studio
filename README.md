@@ -2,7 +2,7 @@
 
 An AI-powered ITSM platform that reimagines the ITIL 4 framework as a programmable operating system. It uses intelligent, configurable AI agents to automate core practices like Incident, Problem, and Change Management, helping Managed Service Providers (MSPs) eliminate manual toil and translate operational efficiency into measurable revenue growth.
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/armagi009/axiom-itil-studio)
 
 ## Table of Contents
 
@@ -119,7 +119,7 @@ This project is designed for easy deployment to Cloudflare's global network.
 
 Alternatively, you can deploy your own version of this project with a single click.
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/armagi009/axiom-itil-studio)
 
 ## Project Structure
 
