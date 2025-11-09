@@ -25,6 +25,11 @@ export function AgentCard({
   index,
   onClick,
 }: AgentCardProps) {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      onClick(id);
+    }
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -39,9 +44,11 @@ export function AgentCard({
         )}
       ></div>
       <Card
-        as="button"
         onClick={() => onClick(id)}
-        className="relative h-full w-full flex flex-col bg-card/80 dark:bg-card/60 backdrop-blur-sm transition-all duration-300 group-hover:border-primary/50 text-left"
+        onKeyDown={handleKeyPress}
+        role="button"
+        tabIndex={0}
+        className="relative h-full w-full flex flex-col bg-card/80 dark:bg-card/60 backdrop-blur-sm transition-all duration-300 group-hover:border-primary/50 text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         <CardHeader className="flex flex-row items-start justify-between gap-4 pb-4">
           <div className="flex items-start gap-4">
