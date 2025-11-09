@@ -1,0 +1,92 @@
+import { motion } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
+import { icons, Bot } from "lucide-react";
+
+type AgentCardProps = {
+  id: string;
+  icon: string; // Changed from React.ElementType to string
+  name: string;
+  description: string;
+  stats: { label: string; value: string }[];
+  tags: string[];
+  active: boolean;
+  index: number;
+  onClick: (id: string) => void;
+};
+export function AgentCard({
+  id,
+  icon,
+  name,
+  description,
+  stats,
+  tags,
+  active,
+  index,
+  onClick,
+}: AgentCardProps) {
+  const IconComponent = icons[icon as keyof typeof icons] || Bot;
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      onClick(id);
+    }
+  };
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      className="relative group h-full"
+    >
+      <div
+        className={cn(
+          "absolute -inset-0.5 bg-gradient-to-r from-primary to-primary-accent rounded-lg blur-sm opacity-0 group-hover:opacity-50 transition duration-1000 group-hover:duration-200",
+          "dark:opacity-0 dark:group-hover:opacity-75"
+        )}
+      ></div>
+      <Card
+        onClick={() => onClick(id)}
+        onKeyDown={handleKeyPress}
+        role="button"
+        tabIndex={0}
+        className="relative h-full w-full flex flex-col bg-card/80 dark:bg-card/60 backdrop-blur-sm transition-all duration-300 group-hover:border-primary/50 text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        <CardHeader className="flex flex-row items-start justify-between gap-4 pb-4">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0">
+              <IconComponent className="h-6 w-6" />
+            </div>
+            <div>
+              <CardTitle className="font-display text-lg font-semibold">
+                {name}
+              </CardTitle>
+              <div className="flex flex-wrap gap-1 mt-2">
+                {tags.map((tag) => (
+                  <Badge key={tag} variant="secondary" className="text-xs">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div onClick={(e) => e.stopPropagation()}>
+            <Switch checked={active} aria-label={`Activate ${name}`} />
+          </div>
+        </CardHeader>
+        <CardContent className="flex-grow flex flex-col justify-between">
+          <p className="text-sm text-muted-foreground mb-6">{description}</p>
+          <div className="flex justify-around border-t pt-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-xl font-bold text-foreground">{stat.value}</p>
+                <p className="text-xs text-muted-foreground">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}

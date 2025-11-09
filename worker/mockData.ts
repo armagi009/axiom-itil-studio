@@ -1,0 +1,111 @@
+import type { Agent } from "./types";
+export const defaultAgents: Agent[] = [
+  {
+    id: "incident",
+    icon: "Zap",
+    name: "Incident Triage Goblin",
+    description: "Automates incident prioritization and assignment based on impact and urgency.",
+    stats: [
+      { label: "Incidents Processed", value: "12,408" },
+      { label: "Avg. Triage Time", value: "5.2s" },
+    ],
+    tags: ["Incident Management", "Triage", "Real-time"],
+    active: true,
+    config: {
+      persona: "A hyper-focused goblin that instantly categorizes and prioritizes new incidents. It lives for the thrill of sorting chaos into order.",
+      trigger: "A new incident JSON payload is received from the monitoring system.",
+      decisionBoundary: "IF impact='high' AND urgency='high', SET priority='P1'. IF impact='low' AND workaround_exists=true, SET priority='P4' and auto-close.",
+      playbook: "1. Ingest incident data.\n2. Analyze keywords for impact/urgency.\n3. Cross-reference with CMDB for affected services.\n4. Assign priority level.\n5. Route to the on-call engineer for the affected service via Slack.",
+    },
+  },
+  {
+    id: "problem",
+    icon: "Cpu",
+    name: "Problem Hunter",
+    description: "Proactively identifies root causes from recurring incidents and trends.",
+    stats: [
+      { label: "Problems Identified", value: "89" },
+      { label: "Avg. Detection Time", value: "48h" },
+    ],
+    tags: ["Problem Management", "RCA", "Analytics"],
+    active: true,
+    config: {
+      persona: "A patient, data-driven detective that sifts through incident logs to find the underlying 'why'.",
+      trigger: "Daily 08:00 UTC analysis of the previous day's incident dump.",
+      decisionBoundary: "IF 5+ incidents with the same CI occur within 7 days, CREATE new Problem record. IF MTTR delta > 15% vs last week, FLAG for root cause analysis.",
+      playbook: "1. Scan incident records for patterns (CI, category, user).\n2. Cluster similar incidents.\n3. Analyze logs and metrics associated with clusters.\n4. Formulate a root cause hypothesis.\n5. Create a Problem ticket with findings and assign to the relevant team.",
+    },
+  },
+  {
+    id: "change",
+    icon: "GitMerge",
+    name: "Change Advisory Bot",
+    description: "Automates the approval process for low-risk, standard changes.",
+    stats: [
+      { label: "Changes Managed", value: "1,204" },
+      { label: "Approval Rate", value: "99.2%" },
+    ],
+    tags: ["Change Enablement", "Automation", "CI/CD"],
+    active: true,
+    config: {
+      persona: "An efficient, risk-averse bureaucrat that ensures all standard changes are logged and approved without human intervention.",
+      trigger: "A new change request is submitted with type='Standard'.",
+      decisionBoundary: "IF change_type='Standard' AND risk='Low' AND ci_health='OK', THEN auto-approve. ELSE, route to human CAB.",
+      playbook: "1. Validate change request against pre-approved templates.\n2. Check CI health and maintenance windows.\n3. Log the change in the system.\n4. Post-implementation, verify success via monitoring tools.\n5. Close change record.",
+    },
+  },
+  {
+    id: "service-request",
+    icon: "Database",
+    name: "Service Request Automator",
+    description: "Fulfills common service requests like password resets and software access.",
+    stats: [
+      { label: "Requests Fulfilled", value: "25,192" },
+      { label: "Avg. Fulfillment", value: "31s" },
+    ],
+    tags: ["Service Request", "Self-Service", "Efficiency"],
+    active: false,
+    config: {
+      persona: "A helpful concierge that provides instant access to common services and resources.",
+      trigger: "User submits a service request through the self-service portal.",
+      decisionBoundary: "IF request_type IN ['Password Reset', 'Software Access', 'New DL'], THEN automate. ELSE, create a manual task for the service desk.",
+      playbook: "1. Authenticate user via SSO.\n2. Identify requested service.\n3. Execute corresponding script (e.g., AD password reset, add user to group).\n4. Confirm success with the user.\n5. Close request.",
+    },
+  },
+  {
+    id: "knowledge",
+    icon: "BookOpen",
+    name: "Knowledge Vulture",
+    description: "Creates and suggests knowledge base articles from resolved incidents.",
+    stats: [
+      { label: "Articles Created", value: "452" },
+      { label: "Ticket Deflection", value: "18%" },
+    ],
+    tags: ["Knowledge Management", "Self-Help", "Content"],
+    active: true,
+    config: {
+      persona: "A librarian that turns resolved tickets into helpful knowledge for everyone.",
+      trigger: "An incident is moved to 'Resolved' state.",
+      decisionBoundary: "IF resolution_notes.length > 200 chars AND NOT is_duplicate, THEN draft KB article. IF 3+ users view the article and don't create a ticket, MARK as effective.",
+      playbook: "1. Extract problem description and resolution steps from the ticket.\n2. Sanitize any sensitive information.\n3. Format into a standard KB template.\n4. Tag with relevant keywords.\n5. Publish as a draft for review by the knowledge manager.",
+    },
+  },
+  {
+    id: "sla",
+    icon: "Clock",
+    name: "SLA Sentinel",
+    description: "Monitors SLA timers and automatically escalates tickets at risk of breaching.",
+    stats: [
+      { label: "Breaches Prevented", value: "312" },
+      { label: "Escalations", value: "789" },
+    ],
+    tags: ["SLA Management", "Monitoring", "Compliance"],
+    active: false,
+    config: {
+      persona: "A vigilant watchdog that never lets an SLA be forgotten.",
+      trigger: "Continuous monitoring of all active incident and request timers.",
+      decisionBoundary: "IF time_to_breach < 60 mins, NOTIFY assigned tech. IF time_to_breach < 15 mins, ESCALATE to team lead. IF breached, LOG breach reason and notify management.",
+      playbook: "1. Check ticket queue every 5 minutes.\n2. Compare 'updated_at' against SLA policy for the ticket's priority.\n3. Identify tickets nearing breach.\n4. Send automated notifications via Slack and email.\n5. Update ticket with escalation history.",
+    },
+  },
+];
