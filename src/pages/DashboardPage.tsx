@@ -34,7 +34,7 @@ import { cn } from "@/lib/utils";
 const COLORS = ["#3b82f6", "#8b5cf6", "#10b981", "#f97316"];
 export function DashboardPage() {
   return (
-    <div className="flex-1 space-y-8">
+    <div className="flex-1 space-y-8 p-4 md:p-8 pt-6">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -120,7 +120,7 @@ export function DashboardPage() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${value / 1000}k`} />
+                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `$${value / 1000}k`} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: "hsl(var(--card))",

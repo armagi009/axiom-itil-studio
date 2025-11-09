@@ -34,7 +34,7 @@ export function AxiomSidebar(): JSX.Element {
     const isActive = location.pathname === item.path;
     return (
       <SidebarMenuItem key={item.path}>
-        <SidebarMenuButton asChild isActive={isActive} className={cn(isActive && "shadow-glow shadow-primary/40")}>
+        <SidebarMenuButton asChild isActive={isActive}>
           <Link to={item.path}>
             <item.icon className="h-5 w-5" />
             <span>{item.label}</span>
